@@ -24,8 +24,7 @@ export default function StoryForm({ formData, onChange, onSubmit, isLoading }: S
     onChange({ ...formData, [field]: value })
   }
 
-  const isValid = formData.childName && formData.toyCharacter && formData.toyName &&
-                  formData.storyTheme && formData.storyVibe && formData.scent && formData.length
+  const isValid = true
 
   return (
     <div className="w-full max-w-2xl mx-auto p-6 md:p-8 bg-white/60 backdrop-blur-md rounded-3xl shadow-xl border border-white/50">

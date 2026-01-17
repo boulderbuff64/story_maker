@@ -81,8 +81,12 @@ export const STORY_LENGTHS = [
   { label: 'Long (5 mins)', value: 'long', words: 750 },
 ] as const
 
-// Amazon product link
-export const AMAZON_LINK = 'https://www.amazon.com/Kids-Bath-Bombs-Surprise-Inside/dp/B0CFQ2NHSC/'
+// Amazon storefront
+export const AMAZON_LINK = 'https://www.amazon.com/stores/BloomFizzy/page/08AE1239-24B7-48C4-81FF-37F0A7BD2E82?lp_asin=B0CFQ2NHSC&ref_=ast_bln&store_ref=bl_ast_dp_brandLogo_sto'
+
+// Individual product links
+export const SEA_SURPRISE_LINK = 'https://www.amazon.com/Sea-Surprise-Bath-Bombs-Kids/dp/B0CH6FPWBN?ref_=ast_sto_dp&th=1&psc=1'
+export const JUNGLE_ADVENTURE_LINK = 'https://www.amazon.com/Jungle-Adventure-Bath-Bombs-Kids/dp/B0CKQTFGBL?ref_=ast_sto_dp&th=1&psc=1'
 
 export type ToyCharacter = typeof TOY_CHARACTERS[number]
 export type Scent = typeof SCENTS[number]

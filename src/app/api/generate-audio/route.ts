@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-// ElevenLabs voice IDs for warm, motherly voices
-// "Rachel" - warm and engaging, great for storytelling
-const VOICE_ID = '21m00Tcm4TlvDq8ikWAM'
+// ElevenLabs voice ID for storytelling
+const VOICE_ID = '8quEMRkSpwEaWBzHvTLv'
 
 export async function POST(request: NextRequest) {
   try {
@@ -37,9 +36,9 @@ export async function POST(request: NextRequest) {
           text: text,
           model_id: 'eleven_monolingual_v1',
           voice_settings: {
-            stability: 0.75,
-            similarity_boost: 0.75,
-            style: 0.5,
+            stability: 0.3,
+            similarity_boost: 0.4,
+            style: 1.0,
             use_speaker_boost: true,
           },
         }),

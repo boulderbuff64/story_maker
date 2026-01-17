@@ -1,6 +1,7 @@
 'use client'
 
-import { AMAZON_LINK } from '@/lib/constants'
+import Image from 'next/image'
+import { AMAZON_LINK, SEA_SURPRISE_LINK, JUNGLE_ADVENTURE_LINK } from '@/lib/constants'
 
 export default function CTASection() {
   return (
@@ -17,21 +18,23 @@ export default function CTASection() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Land Animal Box */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/50 hover:shadow-xl transition-shadow">
-          <div className="aspect-square bg-gradient-to-br from-green-100 to-emerald-200 rounded-xl mb-4 flex items-center justify-center">
-            {/* Placeholder - replace with actual product image */}
-            <div className="text-center">
-              <span className="text-6xl">🦁🦒🐘</span>
-              <p className="text-sm text-gray-500 mt-2">Land Animals</p>
-            </div>
+          <div className="aspect-square bg-gradient-to-br from-green-100 to-emerald-200 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
+            <Image
+              src="https://m.media-amazon.com/images/I/710K6vakjXL._AC_CR0%2C0%2C0%2C0_SX480_SY360_.jpg"
+              alt="Jungle Adventure Bath Bombs for kids"
+              width={480}
+              height={360}
+              className="w-full h-full object-cover"
+            />
           </div>
           <h3 className="font-bold text-lg text-gray-800 mb-2">
-            15-Pack Land Animal Box
+            Jungle Adventure Bath Bombs
           </h3>
           <p className="text-gray-600 text-sm mb-4">
-            Discover unicorns, dinosaurs, owls, and more magical land creatures!
+            Explore the wild with this exciting jungle-themed bath bomb with surprise toys inside!
           </p>
           <a
-            href={AMAZON_LINK}
+            href={JUNGLE_ADVENTURE_LINK}
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full py-3 px-4 bg-gradient-sunset text-white text-center font-semibold rounded-xl hover:opacity-90 transition-opacity"
@@ -42,21 +45,23 @@ export default function CTASection() {
 
         {/* Sea Creature Box */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/50 hover:shadow-xl transition-shadow">
-          <div className="aspect-square bg-gradient-to-br from-blue-100 to-cyan-200 rounded-xl mb-4 flex items-center justify-center">
-            {/* Placeholder - replace with actual product image */}
-            <div className="text-center">
-              <span className="text-6xl">🐬🦈🐙</span>
-              <p className="text-sm text-gray-500 mt-2">Sea Creatures</p>
-            </div>
+          <div className="aspect-square bg-gradient-to-br from-blue-100 to-cyan-200 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
+            <Image
+              src="https://m.media-amazon.com/images/I/71Pfe15CvcL._AC_CR0%2C0%2C0%2C0_SX480_SY360_.jpg"
+              alt="Sea Surprise Bath Bomb for kids"
+              width={480}
+              height={360}
+              className="w-full h-full object-cover"
+            />
           </div>
           <h3 className="font-bold text-lg text-gray-800 mb-2">
-            15-Pack Sea Creature Box
+            Sea Surprise Bath Bomb
           </h3>
           <p className="text-gray-600 text-sm mb-4">
-            Dive into adventure with dolphins, sharks, octopuses, and ocean friends!
+            Dive into adventure with this magical sea-themed bath bomb with surprise toys inside!
           </p>
           <a
-            href={AMAZON_LINK}
+            href={SEA_SURPRISE_LINK}
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full py-3 px-4 bg-gradient-ocean text-white text-center font-semibold rounded-xl hover:opacity-90 transition-opacity"

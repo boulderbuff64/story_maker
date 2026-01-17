@@ -16,7 +16,7 @@ export default function Header() {
           <span className="text-2xl">✨</span>
         </div>
         <p className="text-gray-600 text-center text-sm md:text-base mt-2">
-          Create a personalized bedtime story for your little one
+          Create a personalized story for your little one
         </p>
       </div>
     </header>

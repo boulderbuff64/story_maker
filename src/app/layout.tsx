@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'BloomFizzy Magic Storybook',
-  description: 'Create personalized, AI-narrated bedtime stories featuring your child and their BloomFizzy bath bomb toy!',
+  description: 'Create personalized, AI-narrated stories featuring your child and their BloomFizzy bath bomb toy!',
 }
 
 export default function RootLayout({
