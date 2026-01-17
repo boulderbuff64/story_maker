@@ -1,0 +1,116 @@
+'use client'
+
+import { useState } from 'react'
+import Header from '@/components/Header'
+import StoryForm, { StoryFormData } from '@/components/StoryForm'
+import LoadingAnimation from '@/components/LoadingAnimation'
+import StoryDisplay from '@/components/StoryDisplay'
+import CTASection from '@/components/CTASection'
+
+type AppState = 'form' | 'loading' | 'story'
+
+export default function Home() {
+  const [appState, setAppState] = useState<AppState>('form')
+  const [formData, setFormData] = useState<StoryFormData>({
+    childName: '',
+    toyCharacter: '',
+    toyName: '',
+    storyTheme: '',
+    storyVibe: '',
+    scent: '',
+    length: '',
+  })
+  const [story, setStory] = useState('')
+  const [audioUrl, setAudioUrl] = useState<string | null>(null)
+  const [isLoadingAudio, setIsLoadingAudio] = useState(false)
+
+  const handleSubmit = async () => {
+    setAppState('loading')
+
+    try {
+      // Generate story
+      const storyResponse = await fetch('/api/generate-story', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      if (!storyResponse.ok) {
+        throw new Error('Failed to generate story')
+      }
+
+      const { story: generatedStory } = await storyResponse.json()
+      setStory(generatedStory)
+      setAppState('story')
+
+      // Generate audio in background
+      setIsLoadingAudio(true)
+      try {
+        const audioResponse = await fetch('/api/generate-audio', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: generatedStory }),
+        })
+
+        if (audioResponse.ok) {
+          const audioBlob = await audioResponse.blob()
+          const url = URL.createObjectURL(audioBlob)
+          setAudioUrl(url)
+        }
+      } catch (audioError) {
+        console.error('Audio generation failed:', audioError)
+      } finally {
+        setIsLoadingAudio(false)
+      }
+    } catch (error) {
+      console.error('Story generation failed:', error)
+      setAppState('form')
+      alert('Something went wrong. Please try again!')
+    }
+  }
+
+  const handleBack = () => {
+    // Clean up audio URL
+    if (audioUrl) {
+      URL.revokeObjectURL(audioUrl)
+      setAudioUrl(null)
+    }
+    setStory('')
+    setAppState('form')
+  }
+
+  return (
+    <main className="min-h-screen">
+      <Header />
+
+      <div className="px-4 pb-8">
+        {appState === 'loading' && <LoadingAnimation />}
+
+        {appState === 'form' && (
+          <StoryForm
+            formData={formData}
+            onChange={setFormData}
+            onSubmit={handleSubmit}
+            isLoading={false}
+          />
+        )}
+
+        {appState === 'story' && (
+          <StoryDisplay
+            story={story}
+            audioUrl={audioUrl}
+            isLoadingAudio={isLoadingAudio}
+            onBack={handleBack}
+          />
+        )}
+
+        <CTASection />
+      </div>
+
+      {/* Footer */}
+      <footer className="text-center py-6 text-gray-500 text-sm">
+        <p>Made with ✨ magic ✨ by BloomFizzy</p>
+      </footer>
+    </main>
+  )
+}
