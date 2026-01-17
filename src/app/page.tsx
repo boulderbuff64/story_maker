@@ -36,7 +36,8 @@ export default function Home() {
       })
 
       if (!storyResponse.ok) {
-        throw new Error('Failed to generate story')
+        const errorData = await storyResponse.json().catch(() => ({}))
+        throw new Error(errorData.error || 'Failed to generate story')
       }
 
       const { story: generatedStory } = await storyResponse.json()
@@ -65,7 +66,8 @@ export default function Home() {
     } catch (error) {
       console.error('Story generation failed:', error)
       setAppState('form')
-      alert('Something went wrong. Please try again!')
+      const errorMessage = error instanceof Error ? error.message : 'Something went wrong. Please try again!'
+      alert(errorMessage)
     }
   }
 

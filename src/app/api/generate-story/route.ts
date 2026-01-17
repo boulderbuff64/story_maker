@@ -18,8 +18,25 @@ interface StoryRequest {
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if API key is configured
+    if (!process.env.ANTHROPIC_API_KEY) {
+      console.error('ANTHROPIC_API_KEY is not configured')
+      return NextResponse.json(
+        { error: 'API key not configured. Please add ANTHROPIC_API_KEY to environment variables.' },
+        { status: 500 }
+      )
+    }
+
     const body: StoryRequest = await request.json()
     const { childName, toyCharacter, toyName, storyTheme, storyVibe, scent, length } = body
+
+    // Validate required fields
+    if (!childName || !toyCharacter || !toyName || !storyTheme || !storyVibe || !scent || !length) {
+      return NextResponse.json(
+        { error: 'Missing required fields' },
+        { status: 400 }
+      )
+    }
 
     // Get word count based on length
     const lengthConfig = STORY_LENGTHS.find(l => l.value === length)
@@ -87,8 +104,16 @@ Remember to:
     return NextResponse.json({ story: storyText })
   } catch (error) {
     console.error('Story generation error:', error)
+
+    // Provide more specific error message
+    let errorMessage = 'Failed to generate story'
+    if (error instanceof Error) {
+      errorMessage = error.message
+      console.error('Error details:', error.message)
+    }
+
     return NextResponse.json(
-      { error: 'Failed to generate story' },
+      { error: errorMessage },
       { status: 500 }
     )
   }
