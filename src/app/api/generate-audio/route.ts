@@ -36,9 +36,9 @@ export async function POST(request: NextRequest) {
           text: text,
           model_id: 'eleven_monolingual_v1',
           voice_settings: {
-            stability: 0.3,
-            similarity_boost: 0.4,
-            style: 1.0,
+            stability: 0.5,
+            similarity_boost: 0.75,
+            style: 0.8,
             use_speaker_boost: true,
           },
         }),
@@ -47,9 +47,14 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       const errorText = await response.text()
-      console.error('ElevenLabs API error:', errorText)
+      console.error('ElevenLabs API error:', {
+        status: response.status,
+        statusText: response.statusText,
+        error: errorText,
+        voiceId: VOICE_ID,
+      })
       return NextResponse.json(
-        { error: 'Failed to generate audio' },
+        { error: `Audio generation failed: ${errorText}` },
         { status: response.status }
       )
     }
