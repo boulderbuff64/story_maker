@@ -57,9 +57,19 @@ export default function Home() {
           const audioBlob = await audioResponse.blob()
           const url = URL.createObjectURL(audioBlob)
           setAudioUrl(url)
+        } else {
+          // Log the error details
+          const contentType = audioResponse.headers.get('content-type')
+          if (contentType && contentType.includes('application/json')) {
+            const errorData = await audioResponse.json()
+            console.error('Audio generation failed:', errorData)
+          } else {
+            const errorText = await audioResponse.text()
+            console.error('Audio generation failed:', errorText)
+          }
         }
       } catch (audioError) {
-        console.error('Audio generation failed:', audioError)
+        console.error('Audio generation error:', audioError)
       } finally {
         setIsLoadingAudio(false)
       }
