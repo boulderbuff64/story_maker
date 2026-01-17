@@ -20,10 +20,10 @@ export default function CTASection() {
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/50 hover:shadow-xl transition-shadow">
           <div className="aspect-square bg-gradient-to-br from-green-100 to-emerald-200 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
             <Image
-              src="https://m.media-amazon.com/images/I/710K6vakjXL._AC_CR0%2C0%2C0%2C0_SX480_SY360_.jpg"
+              src="https://m.media-amazon.com/images/I/710K6vakjXL._AC_SL1500_.jpg"
               alt="Jungle Adventure Bath Bombs for kids"
-              width={480}
-              height={360}
+              width={1500}
+              height={1500}
               className="w-full h-full object-cover"
             />
           </div>
@@ -47,10 +47,10 @@ export default function CTASection() {
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/50 hover:shadow-xl transition-shadow">
           <div className="aspect-square bg-gradient-to-br from-blue-100 to-cyan-200 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
             <Image
-              src="https://m.media-amazon.com/images/I/71Pfe15CvcL._AC_CR0%2C0%2C0%2C0_SX480_SY360_.jpg"
+              src="https://m.media-amazon.com/images/I/71Pfe15CvcL._AC_SL1500_.jpg"
               alt="Sea Surprise Bath Bomb for kids"
-              width={480}
-              height={360}
+              width={1500}
+              height={1500}
               className="w-full h-full object-cover"
             />
           </div>
