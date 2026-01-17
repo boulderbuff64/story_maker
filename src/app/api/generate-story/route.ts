@@ -84,7 +84,7 @@ Remember to:
 5. End with a gentle, comforting conclusion perfect for bedtime`
 
     const message = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
+      model: 'claude-haiku-4-5-20251001',
       max_tokens: 2048,
       messages: [
         {
