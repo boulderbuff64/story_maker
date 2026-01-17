@@ -28,6 +28,16 @@ export async function POST(request: NextRequest) {
     console.log('Generating audio with voice ID:', VOICE_ID)
     console.log('Text length:', text.length, 'characters')
 
+    // Clean text for TTS - remove asterisks and other formatting that causes pronunciation issues
+    const cleanedText = text
+      .replace(/\*/g, '')  // Remove asterisks
+      .replace(/_/g, '')   // Remove underscores
+      .replace(/\#/g, '')  // Remove hashtags
+      .replace(/\s+/g, ' ') // Normalize whitespace
+      .trim()
+
+    console.log('Cleaned text length:', cleanedText.length, 'characters')
+
     // Call ElevenLabs Text-to-Speech API
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`,
@@ -39,7 +49,7 @@ export async function POST(request: NextRequest) {
           'xi-api-key': apiKey,
         },
         body: JSON.stringify({
-          text: text,
+          text: cleanedText,
           model_id: 'eleven_monolingual_v1',
           voice_settings: {
             stability: 0.65,

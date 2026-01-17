@@ -64,7 +64,10 @@ export async function POST(request: NextRequest) {
 - Always ending on a positive, satisfying note
 - Written in simple language that young children can understand
 
-Important: Write ONLY the story text. Do not include titles, headings, or any meta-commentary. Start directly with the story.`
+Important:
+- Write ONLY the story text. Do not include titles, headings, or any meta-commentary. Start directly with the story.
+- Do NOT use asterisks (*), underscores (_), or any markdown formatting in the story text.
+- Use plain text only - the story will be read aloud by a voice narrator.`
 
     const userPrompt = `Create a personalized story with these details:
 
