@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'BloomFizzy Magic Storybook',
+  title: 'BloomFizzy - Where Bath Meets Magic',
   description: 'Create personalized, AI-narrated stories featuring your child and their BloomFizzy bath bomb toy!',
 }
 

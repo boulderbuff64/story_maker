@@ -39,39 +39,13 @@ export const SEA_CREATURES = [
 // All 30 Toy Characters
 export const TOY_CHARACTERS = [...LAND_ANIMALS, ...SEA_CREATURES] as const
 
-// Bath Bomb Scents (15)
-export const SCENTS = [
-  'Fruity Burst',
-  'Watermelon',
-  'Papaya',
-  'White Peach Oolong',
-  'Pineapple',
-  'Vanilla',
-  'Gardenia',
-  'Mint',
-  'Lavender',
-  'Potent Eucalyptus',
-  'Rose',
-  'Jasmine',
-  'Baby Orchid',
-  'Orange',
-  'Lemon',
-] as const
-
-// Story Themes
-export const STORY_THEMES = [
-  'Dinosaurs',
-  'Princesses',
-  'Sea Creatures',
-  'Pirates',
-  'Space Explorers',
-] as const
-
-// Story Vibes
-export const STORY_VIBES = [
-  'Funny & Silly',
-  'Calm & Sleepy',
-  'Action & Adventure',
+// Story Types
+export const STORY_TYPES = [
+  { value: 'rhythmic-rhyme', label: 'Rhythmic Rhyme' },
+  { value: 'adventure', label: 'Adventure' },
+  { value: 'fairy-tale', label: 'Fairy Tale' },
+  { value: 'bedtime-soother', label: 'Bedtime Soother' },
+  { value: 'onomatopoeia', label: 'Onomatopoeia Adventure' },
 ] as const
 
 // Story Lengths
@@ -89,7 +63,5 @@ export const SEA_SURPRISE_LINK = 'https://www.amazon.com/Sea-Surprise-Bath-Bombs
 export const JUNGLE_ADVENTURE_LINK = 'https://www.amazon.com/Jungle-Adventure-Bath-Bombs-Kids/dp/B0CKQTFGBL?ref_=ast_sto_dp&th=1&psc=1'
 
 export type ToyCharacter = typeof TOY_CHARACTERS[number]
-export type Scent = typeof SCENTS[number]
-export type StoryTheme = typeof STORY_THEMES[number]
-export type StoryVibe = typeof STORY_VIBES[number]
+export type StoryType = typeof STORY_TYPES[number]['value']
 export type StoryLength = typeof STORY_LENGTHS[number]['value']

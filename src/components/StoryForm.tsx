@@ -1,14 +1,12 @@
 'use client'
 
-import { TOY_CHARACTERS, SCENTS, STORY_THEMES, STORY_VIBES, STORY_LENGTHS } from '@/lib/constants'
+import { TOY_CHARACTERS, STORY_TYPES, STORY_LENGTHS } from '@/lib/constants'
 
 export interface StoryFormData {
   childName: string
   toyCharacter: string
   toyName: string
-  storyTheme: string
-  storyVibe: string
-  scent: string
+  storyType: string
   length: string
 }
 
@@ -81,55 +79,20 @@ export default function StoryForm({ formData, onChange, onSubmit, isLoading }: S
           />
         </div>
 
-        {/* Story Theme & Vibe - Side by Side on larger screens */}
+        {/* Story Type & Length - Side by Side on larger screens */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Story Theme
+              Story Type
             </label>
             <select
-              value={formData.storyTheme}
-              onChange={(e) => handleChange('storyTheme', e.target.value)}
+              value={formData.storyType}
+              onChange={(e) => handleChange('storyType', e.target.value)}
               className="form-select"
             >
-              <option value="">Select a theme...</option>
-              {STORY_THEMES.map((theme) => (
-                <option key={theme} value={theme}>{theme}</option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Story Vibe
-            </label>
-            <select
-              value={formData.storyVibe}
-              onChange={(e) => handleChange('storyVibe', e.target.value)}
-              className="form-select"
-            >
-              <option value="">Select a vibe...</option>
-              {STORY_VIBES.map((vibe) => (
-                <option key={vibe} value={vibe}>{vibe}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        {/* Scent & Length - Side by Side on larger screens */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Bath Bomb Scent
-            </label>
-            <select
-              value={formData.scent}
-              onChange={(e) => handleChange('scent', e.target.value)}
-              className="form-select"
-            >
-              <option value="">Select your scent...</option>
-              {SCENTS.map((scent) => (
-                <option key={scent} value={scent}>{scent}</option>
+              <option value="">Select a story type...</option>
+              {STORY_TYPES.map((type) => (
+                <option key={type.value} value={type.value}>{type.label}</option>
               ))}
             </select>
           </div>
@@ -171,7 +134,7 @@ export default function StoryForm({ formData, onChange, onSubmit, isLoading }: S
               Creating Magic...
             </span>
           ) : (
-            '✨ Open the Storybook ✨'
+            'Open the Storybook'
           )}
         </button>
       </div>

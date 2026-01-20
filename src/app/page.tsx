@@ -6,6 +6,7 @@ import StoryForm, { StoryFormData } from '@/components/StoryForm'
 import LoadingAnimation from '@/components/LoadingAnimation'
 import StoryDisplay from '@/components/StoryDisplay'
 import CTASection from '@/components/CTASection'
+import EmailCollectionForm from '@/components/EmailCollectionForm'
 
 type AppState = 'form' | 'loading' | 'story'
 
@@ -15,9 +16,7 @@ export default function Home() {
     childName: '',
     toyCharacter: '',
     toyName: '',
-    storyTheme: '',
-    storyVibe: '',
-    scent: '',
+    storyType: '',
     length: '',
   })
   const [story, setStory] = useState('')
@@ -116,12 +115,13 @@ export default function Home() {
           />
         )}
 
+        <EmailCollectionForm sourceTag="BDSS - Jan 2026" />
         <CTASection />
       </div>
 
       {/* Footer */}
       <footer className="text-center py-6 text-gray-500 text-sm">
-        <p>Made with ✨ magic ✨ by BloomFizzy</p>
+        <p>Made with magic by BloomFizzy</p>
       </footer>
     </main>
   )

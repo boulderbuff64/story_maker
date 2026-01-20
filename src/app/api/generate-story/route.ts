@@ -10,9 +10,7 @@ interface StoryRequest {
   childName?: string
   toyCharacter?: string
   toyName?: string
-  storyTheme?: string
-  storyVibe?: string
-  scent?: string
+  storyType?: string
   length?: string
 }
 
@@ -28,32 +26,36 @@ export async function POST(request: NextRequest) {
     }
 
     const body: StoryRequest = await request.json()
-    let { childName, toyCharacter, toyName, storyTheme, storyVibe, scent, length } = body
+    let { childName, toyCharacter, toyName, storyType, length } = body
 
     // Provide defaults for optional fields
     childName = childName || 'a brave little explorer'
     toyCharacter = toyCharacter || 'magical creature'
     toyName = toyName || 'Friend'
-    storyTheme = storyTheme || 'Adventure'
-    storyVibe = storyVibe || 'Calm & Sleepy'
-    scent = scent || 'a magical bloom'
+    storyType = storyType || 'adventure'
     length = length || 'medium'
 
     // Get word count based on length
     const lengthConfig = STORY_LENGTHS.find(l => l.value === length)
     const wordCount = lengthConfig?.words || 400
 
-    // Determine vibe-specific instructions
-    let vibeInstructions = ''
-    switch (storyVibe) {
-      case 'Funny & Silly':
-        vibeInstructions = 'Make the story funny, playful, and filled with silly moments that will make a child giggle. Include funny sounds, silly situations, and lighthearted humor.'
+    // Determine story type-specific instructions
+    let typeInstructions = ''
+    switch (storyType) {
+      case 'rhythmic-rhyme':
+        typeInstructions = 'Write the story in rhythmic, rhyming verse. Create a playful, musical flow with consistent rhyme schemes (like AABB or ABAB). Make it fun to read aloud with a bouncy, engaging rhythm that children will love to hear repeated.'
         break
-      case 'Calm & Sleepy':
-        vibeInstructions = 'Make the story calm, soothing, and relaxing. Use gentle imagery, soft descriptions, and a peaceful pace that helps a child feel cozy and content.'
+      case 'adventure':
+        typeInstructions = 'Make the story an exciting adventure filled with exploration, discovery, and mild challenges. Include moments of bravery, problem-solving, and triumph. Keep it age-appropriate with a positive resolution.'
         break
-      case 'Action & Adventure':
-        vibeInstructions = 'Make the story exciting with thrilling moments and adventurous scenarios. Include moments of bravery and exploration, but keep it age-appropriate and end on a positive, resolved note.'
+      case 'fairy-tale':
+        typeInstructions = 'Write in a classic fairy tale style with "Once upon a time" beginnings, magical elements, gentle lessons, and a "happily ever after" ending. Include enchanted settings, wonder, and timeless storytelling.'
+        break
+      case 'bedtime-soother':
+        typeInstructions = 'Create a calm, soothing, gentle story perfect for bedtime. Use peaceful imagery, soft descriptions, and a relaxing pace. Include calming elements like stars, moonlight, soft whispers, and cozy feelings that help a child wind down and feel safe.'
+        break
+      case 'onomatopoeia':
+        typeInstructions = 'Fill the story with fun sound effects and onomatopoeia throughout! Include sounds like CRASH, ZOOM, SPLASH, BEEP, SQUISH, POP, WHOOSH, BUZZ, DING, SWOOSH, etc. Make it playful and interactive with lots of expressive sound words that bring the action to life.'
         break
     }
 
@@ -73,17 +75,16 @@ Important:
 
 - Child's name: ${childName}
 - Their toy friend: A ${toyCharacter} named ${toyName}
-- Story theme: ${storyTheme}
-- The magical bath bomb scent: ${scent} (weave this scent into the story as a sensory detail - perhaps it's a magical smell in the story world, or the scent of something beautiful the characters encounter)
+- Story type: ${storyType}
 
-${vibeInstructions}
+${typeInstructions}
 
 The story should be approximately ${wordCount} words. Make ${childName} the hero of the story, with ${toyName} the ${toyCharacter} as their loyal companion and friend.
 
 Remember to:
 1. Address the child by name throughout the story
 2. Make the toy character (${toyName}) come alive as a magical friend
-3. Include the ${scent} scent as a meaningful sensory element
+3. Follow the story type instructions carefully to create the right style and tone
 4. Create a complete story arc with a beginning, middle, and satisfying end
 5. End with an uplifting, positive conclusion that leaves the child feeling happy and inspired`
 

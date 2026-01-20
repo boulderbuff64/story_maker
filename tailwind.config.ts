@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        'bloom-red': '#E63946',
         'bloom-pink': '#FF6B9D',
         'bloom-coral': '#FF8E72',
         'bloom-orange': '#FFB347',

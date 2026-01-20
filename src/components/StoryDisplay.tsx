@@ -152,7 +152,7 @@ export default function StoryDisplay({ story, audioUrl, isLoadingAudio, onBack }
 
         {/* Decorative footer */}
         <div className="mt-8 text-center">
-          <span className="text-3xl">✨ The End ✨</span>
+          <span className="text-3xl font-semibold text-bloom-red">The End</span>
         </div>
       </div>
     </div>
