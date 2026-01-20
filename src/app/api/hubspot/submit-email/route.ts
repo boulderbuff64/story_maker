@@ -3,9 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 interface HubSpotContact {
   properties: {
     email: string
-    hs_lead_status?: string
     source_tag?: string
-    submission_timestamp?: string
   }
 }
 
@@ -17,8 +15,8 @@ interface SubmitEmailRequest {
 export async function POST(request: NextRequest) {
   try {
     // Check if API key is configured
-    if (!process.env.HUBSPOT_API_KEY) {
-      console.error('HUBSPOT_API_KEY is not configured')
+    if (!process.env.HUBSPOT_APP_ACCESS_API_KEY) {
+      console.error('HUBSPOT_APP_ACCESS_API_KEY is not configured')
       return NextResponse.json(
         { error: 'HubSpot API key not configured' },
         { status: 500 }
@@ -41,7 +39,6 @@ export async function POST(request: NextRequest) {
       properties: {
         email: email.toLowerCase(),
         source_tag: sourceTag,
-        submission_timestamp: new Date().toISOString(),
       },
     }
 
@@ -50,7 +47,7 @@ export async function POST(request: NextRequest) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.HUBSPOT_API_KEY}`,
+        Authorization: `Bearer ${process.env.HUBSPOT_APP_ACCESS_API_KEY}`,
       },
       body: JSON.stringify(contact),
     })
