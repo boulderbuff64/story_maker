@@ -8,6 +8,7 @@ export interface StoryFormData {
   toyName: string
   storyType: string
   length: string
+  email: string
 }
 
 interface StoryFormProps {
@@ -112,6 +113,21 @@ export default function StoryForm({ formData, onChange, onSubmit, isLoading }: S
               ))}
             </select>
           </div>
+        </div>
+
+        {/* Email Address */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Your Email (to receive more stories)
+          </label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={formData.email}
+            onChange={(e) => handleChange('email', e.target.value)}
+            required
+            className="form-input"
+          />
         </div>
 
         {/* Submit Button */}

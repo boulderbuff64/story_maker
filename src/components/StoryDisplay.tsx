@@ -2,6 +2,12 @@
 
 import { useState, useRef, useEffect } from 'react'
 
+interface EmailSignupState {
+  email: string
+  isLoading: boolean
+  message: { type: 'success' | 'error'; text: string } | null
+}
+
 interface StoryDisplayProps {
   story: string
   audioUrl: string | null
@@ -14,6 +20,45 @@ export default function StoryDisplay({ story, audioUrl, isLoadingAudio, onBack }
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const audioRef = useRef<HTMLAudioElement>(null)
+  const [emailSignup, setEmailSignup] = useState<EmailSignupState>({
+    email: '',
+    isLoading: false,
+    message: null,
+  })
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setEmailSignup(prev => ({ ...prev, isLoading: true, message: null }))
+
+    try {
+      const response = await fetch('/api/hubspot/submit-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: emailSignup.email.trim(),
+          sourceTag: 'Story Completion - Jan 2026',
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit email')
+      }
+
+      setEmailSignup({
+        email: '',
+        isLoading: false,
+        message: { type: 'success', text: 'Thank you! Check your inbox for something special.' },
+      })
+    } catch (error) {
+      setEmailSignup(prev => ({
+        ...prev,
+        isLoading: false,
+        message: { type: 'error', text: error instanceof Error ? error.message : 'Something went wrong' },
+      }))
+    }
+  }
 
   useEffect(() => {
     const audio = audioRef.current
@@ -153,6 +198,51 @@ export default function StoryDisplay({ story, audioUrl, isLoadingAudio, onBack }
         {/* Decorative footer */}
         <div className="mt-8 text-center">
           <span className="text-3xl font-semibold text-bloom-red">The End</span>
+        </div>
+
+        {/* Email Signup Section */}
+        <div className="mt-10 pt-8 border-t border-gray-200">
+          <div className="text-center mb-4">
+            <h3 className="text-xl font-bold text-gray-800 mb-2">
+              Loved this story?
+            </h3>
+            <p className="text-gray-600">
+              Enter your email to receive something special!
+            </p>
+          </div>
+
+          <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="email"
+                value={emailSignup.email}
+                onChange={(e) => setEmailSignup(prev => ({ ...prev, email: e.target.value }))}
+                placeholder="Enter your email"
+                required
+                disabled={emailSignup.isLoading}
+                className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-bloom-pink focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+              />
+              <button
+                type="submit"
+                disabled={emailSignup.isLoading}
+                className="px-6 py-3 bg-bloom-red text-white font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+              >
+                {emailSignup.isLoading ? 'Sending...' : 'Sign Up'}
+              </button>
+            </div>
+
+            {emailSignup.message && (
+              <div
+                className={`mt-3 p-3 rounded-lg text-sm font-medium text-center ${
+                  emailSignup.message.type === 'success'
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-red-100 text-red-800'
+                }`}
+              >
+                {emailSignup.message.text}
+              </div>
+            )}
+          </form>
         </div>
       </div>
     </div>

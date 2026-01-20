@@ -6,7 +6,6 @@ import StoryForm, { StoryFormData } from '@/components/StoryForm'
 import LoadingAnimation from '@/components/LoadingAnimation'
 import StoryDisplay from '@/components/StoryDisplay'
 import CTASection from '@/components/CTASection'
-import EmailCollectionForm from '@/components/EmailCollectionForm'
 
 type AppState = 'form' | 'loading' | 'story'
 
@@ -18,6 +17,7 @@ export default function Home() {
     toyName: '',
     storyType: '',
     length: '',
+    email: '',
   })
   const [story, setStory] = useState('')
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
@@ -27,6 +27,26 @@ export default function Home() {
     setAppState('loading')
 
     try {
+      // Submit email to HubSpot
+      if (formData.email) {
+        try {
+          const emailResponse = await fetch('/api/hubspot/submit-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: formData.email.trim(),
+              sourceTag: 'BDSS - Jan 2026',
+            }),
+          })
+
+          if (!emailResponse.ok) {
+            console.error('Email submission failed:', emailResponse.status)
+          }
+        } catch (emailError) {
+          console.error('Email submission error:', emailError)
+        }
+      }
+
       // Generate story
       const storyResponse = await fetch('/api/generate-story', {
         method: 'POST',
@@ -115,7 +135,6 @@ export default function Home() {
           />
         )}
 
-        <EmailCollectionForm sourceTag="BDSS - Jan 2026" />
         <CTASection />
       </div>
 
